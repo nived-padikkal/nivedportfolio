@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #00ff88;
+  /* Neon Green Crypto style */
+  --color-accent: #00cc6a;
+  /* Darker green for hover states */
+  --color-background: #0a0e17;
+  /* Deep Navy/Black crypto background */
+  --color-surface: #131a2a;
+  /* Card background color */
+  --color-surface-hover: #1c263b;
+  --font-sans: 'Hammersmith One', sans-serif;
+  --font-serif: 'Instrument Serif', serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@layer utilities {
+  .bg-animated-gradient-grid {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(-45deg, #0a0e17, #062b19, #030712, #00170a);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+  }
+
+  .bg-animated-gradient-grid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-size: 50px 50px;
+    background-image:
+      linear-gradient(to right, rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
+    animation: gridMove 4s linear infinite;
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  }
+
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  }
+}
+
+@layer base {
+
+  html,
+  body {
+    @apply bg-background text-white font-sans scroll-smooth cursor-none;
+  }
+
+  /* Hide cursor for interactive elements too, so custom cursor is the only one */
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    @apply cursor-none;
+  }
+}
